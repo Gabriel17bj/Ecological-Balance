@@ -239,6 +239,34 @@
         "eligible": true,
         "unmet": []
       }
+    },
+    {
+      "n": 14,
+      "at": "2026-07-31T05:03:43.308Z",
+      "security": {
+        "score": 98,
+        "grade": "A+",
+        "eligible": true,
+        "blocking": []
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
+    },
+    {
+      "n": 15,
+      "at": "2026-07-31T05:04:46.529Z",
+      "security": {
+        "score": 98,
+        "grade": "A+",
+        "eligible": true,
+        "blocking": []
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
     }
   ],
   "items": {
@@ -285,15 +313,15 @@
       "regressed": false
     },
     "sec.transport.https-redirect": {
-      "status": "fail",
+      "status": "pass",
       "firstFailRound": 9,
-      "fixedRound": null,
+      "fixedRound": 14,
       "regressed": false
     },
     "sec.transport.ssl-valid": {
-      "status": "fail",
+      "status": "pass",
       "firstFailRound": 9,
-      "fixedRound": null,
+      "fixedRound": 14,
       "regressed": false
     },
     "sec.transport.old-tls": {
@@ -351,7 +379,7 @@
       "regressed": false
     },
     "seo.description": {
-      "status": "pass",
+      "status": "fail",
       "firstFailRound": 1,
       "fixedRound": 9,
       "regressed": false
@@ -363,7 +391,7 @@
       "regressed": false
     },
     "seo.og": {
-      "status": "pass",
+      "status": "fail",
       "firstFailRound": 1,
       "fixedRound": 9,
       "regressed": false
@@ -508,7 +536,7 @@
     }
   },
   "passed": {
-    "security": false,
+    "security": true,
     "edzip": true
   },
   "submitted": {}

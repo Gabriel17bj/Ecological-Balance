@@ -4,7 +4,7 @@
     "name": "dorms-check",
     "version": "0.1.0"
   },
-  "generatedAt": "2026-07-31T04:55:13.043Z",
+  "generatedAt": "2026-07-31T05:04:55.779Z",
   "app": {
     "name": "생태계 균형 맞추기 게임",
     "url": "https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app",
@@ -21,9 +21,9 @@
   "tracks": {
     "security": {
       "claimed": true,
-      "score": 82,
-      "grade": "B-",
-      "eligible": false
+      "score": 98,
+      "grade": "A+",
+      "eligible": true
     },
     "edzip": {
       "claimed": true,
@@ -42,8 +42,8 @@
       "observed": "server.ts:13 - Content-Security-Policy header configured",
       "evidence": {
         "header": "content-security-policy",
-        "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
-        "observedAt": "2026-07-31T04:54:58.144Z",
+        "value": null,
+        "observedAt": "2026-07-31T05:04:46.271Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:13 - Content-Security-Policy header configured",
@@ -62,8 +62,8 @@
       "observed": "server.ts:14 - Strict-Transport-Security header configured",
       "evidence": {
         "header": "strict-transport-security",
-        "value": "max-age=63072000; includeSubDomains",
-        "observedAt": "2026-07-31T04:54:58.144Z",
+        "value": null,
+        "observedAt": "2026-07-31T05:04:46.271Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:14 - Strict-Transport-Security header configured",
@@ -82,8 +82,8 @@
       "observed": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
       "evidence": {
         "header": "x-frame-options",
-        "value": "SAMEORIGIN",
-        "observedAt": "2026-07-31T04:54:58.144Z",
+        "value": null,
+        "observedAt": "2026-07-31T05:04:46.271Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
@@ -102,8 +102,8 @@
       "observed": "server.ts:16 - X-Content-Type-Options nosniff header configured",
       "evidence": {
         "header": "x-content-type-options",
-        "value": "nosniff",
-        "observedAt": "2026-07-31T04:54:58.144Z",
+        "value": null,
+        "observedAt": "2026-07-31T05:04:46.271Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:16 - X-Content-Type-Options nosniff header configured",
@@ -122,8 +122,8 @@
       "observed": "server.ts:17 - Referrer-Policy header configured",
       "evidence": {
         "header": "referrer-policy",
-        "value": "strict-origin-when-cross-origin",
-        "observedAt": "2026-07-31T04:54:58.144Z",
+        "value": null,
+        "observedAt": "2026-07-31T05:04:46.271Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:17 - Referrer-Policy header configured",
@@ -142,8 +142,8 @@
       "observed": "server.ts:18 - Permissions-Policy header configured",
       "evidence": {
         "header": "permissions-policy",
-        "value": "camera=(), microphone=(), geolocation=()",
-        "observedAt": "2026-07-31T04:54:58.144Z",
+        "value": null,
+        "observedAt": "2026-07-31T05:04:46.271Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:18 - Permissions-Policy header configured",
@@ -162,7 +162,7 @@
       "observed": "x-powered-by 미노출(양호)",
       "evidence": {
         "poweredBy": null,
-        "server": null
+        "server": "Google Frontend"
       }
     },
     {
@@ -171,11 +171,11 @@
       "severity": "high",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "HTTP 요청이 HTTPS로 강제되지 않음 (HTTP 0)",
+      "status": "pass",
+      "observed": "HTTP 요청이 HTTPS로 리다이렉트됨 (HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/)",
       "evidence": {
-        "httpProbe": "HTTP 0",
-        "redirectsHttps": false
+        "httpProbe": "HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/",
+        "redirectsHttps": true
       }
     },
     {
@@ -184,11 +184,12 @@
       "severity": "critical",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "TLS 연결 실패: connect ECONNREFUSED 127.0.0.1:443",
+      "status": "pass",
+      "observed": "TLS 연결 성공 (TLSv1.3)",
       "evidence": {
-        "protocol": null,
-        "error": "connect ECONNREFUSED 127.0.0.1:443"
+        "protocol": "TLSv1.3",
+        "authorized": true,
+        "authError": null
       }
     },
     {
@@ -198,9 +199,9 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "TLS 버전 양호: (측정 실패)",
+      "observed": "TLS 버전 양호: TLSv1.3",
       "evidence": {
-        "protocol": null
+        "protocol": "TLSv1.3"
       }
     },
     {
@@ -225,27 +226,27 @@
         "probed": [
           {
             "path": "/.env",
-            "httpStatus": 200,
+            "httpStatus": 302,
             "exposed": false
           },
           {
             "path": "/.env.local",
-            "httpStatus": 200,
+            "httpStatus": 302,
             "exposed": false
           },
           {
             "path": "/.env.production",
-            "httpStatus": 200,
+            "httpStatus": 302,
             "exposed": false
           },
           {
             "path": "/.git/config",
-            "httpStatus": 200,
+            "httpStatus": 302,
             "exposed": false
           },
           {
             "path": "/.git/HEAD",
-            "httpStatus": 200,
+            "httpStatus": 302,
             "exposed": false
           }
         ],
@@ -331,7 +332,7 @@
       "severity": "info",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "pass",
+      "status": "fail",
       "observed": "설명 메타",
       "evidence": {}
     },
@@ -351,7 +352,7 @@
       "severity": "info",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "pass",
+      "status": "fail",
       "observed": "Open Graph 태그",
       "evidence": {}
     },
@@ -372,9 +373,9 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "응답 시간 121ms",
+      "observed": "응답 시간 135ms",
       "evidence": {
-        "ms": 121
+        "ms": 135
       }
     },
     {
@@ -384,9 +385,9 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "문서 크기 2KB",
+      "observed": "문서 크기 10KB",
       "evidence": {
-        "bytes": 1834
+        "bytes": 10326
       }
     },
     {
@@ -411,8 +412,9 @@
       "observed": "server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149",
       "evidence": {
         "found": true,
-        "via": "link",
+        "via": "path",
         "where": "/privacy",
+        "status": 302,
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149",
@@ -428,11 +430,12 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "이용약관 발견(link: /terms)",
+      "observed": "이용약관 발견(path: /terms)",
       "evidence": {
         "found": true,
-        "via": "link",
-        "where": "/terms"
+        "via": "path",
+        "where": "/terms",
+        "status": 302
       }
     },
     {
@@ -733,5 +736,5 @@
     ],
     "note": "서버는 이 항목을 앱 URL 로 독립 재스캔해 대조한다. 불일치 시 발급 거부. 나머지(code.hardcoded-secret 등)는 자기신고로 투명 표기."
   },
-  "manifestSha256": "5b0dbdba34a1c76dba421241769bf6c8de8b2ffe8ded20623338196e0c53327e"
+  "manifestSha256": "c684c01b4644c70275f74a077c39383f459d7f04f49450bd1c048b77c739a001"
 }
