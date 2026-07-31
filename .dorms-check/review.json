@@ -3,60 +3,60 @@
     "status": "pass",
     "evidence": "server.ts:8-16 (Content-Security-Policy, Strict-Transport-Security, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy 구현)",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.757Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.1-1": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:43-52, src/components/ReflectionReportModal.tsx:28-32",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.1-2": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:37-41, src/App.tsx:473",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.1-3": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:43-60",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.2-1": {
     "status": "pass",
     "evidence": "server.ts:8-16, src/components/PrivacyPolicyModal.tsx:62-67",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.3-1": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:69-74",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.4-1": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:76-81",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.5-1": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:89-97, src/App.tsx:477",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.5-2": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:83-87",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   },
   "edzip.5-3": {
     "status": "pass",
     "evidence": "src/components/PrivacyPolicyModal.tsx:83-87",
     "by": "teacher-assistant",
-    "at": "2026-07-31T01:30:39.758Z"
+    "at": "2026-07-31T01:45:30.898Z"
   }
 }

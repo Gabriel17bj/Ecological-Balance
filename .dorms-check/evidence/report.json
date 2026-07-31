@@ -4,7 +4,7 @@
     "name": "dorms-check",
     "version": "0.1.0"
   },
-  "generatedAt": "2026-07-31T01:30:53.523Z",
+  "generatedAt": "2026-07-31T01:45:38.181Z",
   "app": {
     "name": "생태계 균형 맞추기 게임",
     "url": "https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app",
@@ -698,5 +698,5 @@
     ],
     "note": "서버는 이 항목을 앱 URL 로 독립 재스캔해 대조한다. 불일치 시 발급 거부. 나머지(code.hardcoded-secret 등)는 자기신고로 투명 표기."
   },
-  "manifestSha256": "406b9da87bcff85c61ff4ab08c745a413ed039ad30f375e2ec5236c10b719d23"
+  "manifestSha256": "2af00a0ee31baafe3a93d2288b61f284f415cb3b02b6e29dff4a953f2d74dcf2"
 }

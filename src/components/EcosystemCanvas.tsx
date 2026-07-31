@@ -190,7 +190,31 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
               return Math.sqrt(dx * dx + dy * dy) < 120;
             });
 
-            if (predator) {
+            // Obstacle positions for collision checking
+            const pondX = width - 110;
+            const pondY = 90;
+            const pondDist = Math.hypot(updated.x - pondX, updated.y - pondY);
+            
+            const rockX = 100;
+            const rockY = height - 80;
+            const rockDist = Math.hypot(updated.x - rockX, updated.y - rockY);
+
+            // Wall or obstacle collision check -> REVERSE (후진 & 회피)
+            const isNearWall = updated.x <= 35 || updated.x >= width - 35 || updated.y <= 35 || updated.y >= height - 35;
+            const isCollidingPond = pondDist < 60;
+            const isCollidingRock = rockDist < 40;
+
+            if (isCollidingPond || isCollidingRock || isNearWall) {
+              // 후진 (Bounce Back & Reversing logic)
+              updated.state = 'fleeing';
+              const pushX = isCollidingPond ? updated.x - pondX : isCollidingRock ? updated.x - rockX : (width / 2 - updated.x);
+              const pushY = isCollidingPond ? updated.y - pondY : isCollidingRock ? updated.y - rockY : (height / 2 - updated.y);
+              const pushDist = Math.hypot(pushX, pushY) || 1;
+              
+              // Reverse speed away from obstacle
+              updated.vx = (pushX / pushDist) * 65 + (Math.random() - 0.5) * 20;
+              updated.vy = (pushY / pushDist) * 65 + (Math.random() - 0.5) * 20;
+            } else if (predator) {
               // Flee from predator!
               updated.state = 'fleeing';
               const dx = updated.x - predator.x;
@@ -213,8 +237,8 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
                 const dx = nearbyGrass.entity.x - updated.x;
                 const dy = nearbyGrass.entity.y - updated.y;
                 const dist = Math.hypot(dx, dy) || 1;
-                updated.vx = (dx / dist) * 45;
-                updated.vy = (dy / dist) * 45;
+                updated.vx = (dx / dist) * 50;
+                updated.vy = (dy / dist) * 50;
 
                 // Eat grass on contact
                 if (dist < 16) {
@@ -224,12 +248,13 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
                   addFloatingText('+35 🌿', updated.x, updated.y - 10, '#22c55e');
                 }
               } else {
-                // Random wander
-                updated.state = 'idle';
-                if (Math.random() < 0.05) {
+                // Random wander & Prevent Sticking/Stopping (멈춤 방지)
+                const speed = Math.hypot(updated.vx, updated.vy);
+                if (speed < 5 || Math.random() < 0.08) {
+                  updated.state = 'idle';
                   const angle = Math.random() * Math.PI * 2;
-                  updated.vx = Math.cos(angle) * 35;
-                  updated.vy = Math.sin(angle) * 35;
+                  updated.vx = Math.cos(angle) * (35 + Math.random() * 20);
+                  updated.vy = Math.sin(angle) * (35 + Math.random() * 20);
                 }
               }
 
@@ -247,8 +272,8 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
                     type: 'rabbit',
                     x: updated.x + (Math.random() - 0.5) * 20,
                     y: updated.y + (Math.random() - 0.5) * 20,
-                    vx: (Math.random() - 0.5) * 30,
-                    vy: (Math.random() - 0.5) * 30,
+                    vx: (Math.random() - 0.5) * 35,
+                    vy: (Math.random() - 0.5) * 35,
                     energy: 50,
                     maxEnergy: 100,
                     age: 0,
@@ -427,20 +452,64 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
     // 1. Clear Canvas FIRST
     ctx.clearRect(0, 0, width, height);
 
-    // 2. Draw Ground Base Color based on Weather
+    // 2. Draw Natural Eco-Friendly Ground Base Gradient based on Weather
+    const groundGrad = ctx.createLinearGradient(0, 0, width, height);
     if (weather === 'drought') {
-      ctx.fillStyle = '#fef08a'; // Dry prairie yellowish ground
+      groundGrad.addColorStop(0, '#fef08a');
+      groundGrad.addColorStop(0.5, '#fde047');
+      groundGrad.addColorStop(1, '#fef9c3');
     } else if (weather === 'rainy') {
-      ctx.fillStyle = '#dbeafe'; // Wet meadow bluish ground
+      groundGrad.addColorStop(0, '#e0f2fe');
+      groundGrad.addColorStop(0.5, '#bae6fd');
+      groundGrad.addColorStop(1, '#dcfce7');
     } else {
-      ctx.fillStyle = '#dcfce7'; // Lush green meadow ground
+      groundGrad.addColorStop(0, '#dcfce7');
+      groundGrad.addColorStop(0.5, '#bbf7d0');
+      groundGrad.addColorStop(1, '#f0fdf4');
     }
+    ctx.fillStyle = groundGrad;
     ctx.fillRect(0, 0, width, height);
 
-    // Grid pattern background
-    ctx.strokeStyle = weather === 'drought' ? 'rgba(217, 119, 6, 0.12)' : 'rgba(22, 163, 74, 0.12)';
+    // 3. Organic Hill Slopes (부드러운 언덕 능선)
+    ctx.save();
+    ctx.fillStyle = weather === 'drought' ? 'rgba(234, 179, 8, 0.15)' : 'rgba(34, 197, 94, 0.15)';
+    ctx.beginPath();
+    ctx.moveTo(0, height * 0.4);
+    ctx.bezierCurveTo(width * 0.3, height * 0.2, width * 0.7, height * 0.6, width, height * 0.35);
+    ctx.lineTo(width, 0);
+    ctx.lineTo(0, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = weather === 'drought' ? 'rgba(217, 119, 6, 0.12)' : 'rgba(16, 185, 129, 0.15)';
+    ctx.beginPath();
+    ctx.moveTo(0, height * 0.75);
+    ctx.bezierCurveTo(width * 0.4, height * 0.9, width * 0.6, height * 0.65, width, height * 0.85);
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // 4. Winding Forest Trail (구불구불한 흙 오솔길)
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(0, height * 0.65);
+    ctx.bezierCurveTo(width * 0.35, height * 0.7, width * 0.5, height * 0.35, width * 0.85, height * 0.2);
+    ctx.strokeStyle = weather === 'drought' ? 'rgba(180, 83, 9, 0.3)' : 'rgba(217, 119, 6, 0.25)';
+    ctx.lineWidth = 28;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    ctx.strokeStyle = weather === 'drought' ? 'rgba(251, 191, 36, 0.4)' : 'rgba(254, 240, 138, 0.4)';
+    ctx.lineWidth = 18;
+    ctx.stroke();
+    ctx.restore();
+
+    // Subtle Eco Grid lines
+    ctx.strokeStyle = weather === 'drought' ? 'rgba(217, 119, 6, 0.06)' : 'rgba(22, 163, 74, 0.06)';
     ctx.lineWidth = 1;
-    const gridSize = 40;
+    const gridSize = 50;
     for (let x = 0; x < width; x += gridSize) {
       ctx.beginPath();
       ctx.moveTo(x, 0);
@@ -454,32 +523,48 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
       ctx.stroke();
     }
 
-    // 3. Draw Natural Landscape Map Elements
-    // Water Pond in Top-Right
+    // 5. Draw Natural Landscape Elements (연못 & 바위 & 꽃밭)
+    // Water Pond in Top-Right with Sandy Shore
     const pondX = width - 110;
     const pondY = 90;
     const pondRadius = 65;
     
     ctx.save();
+    // Shore
+    ctx.beginPath();
+    ctx.ellipse(pondX, pondY, pondRadius + 10, (pondRadius + 10) * 0.72, Math.PI / 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#fde68a';
+    ctx.fill();
+
+    // Water body
     ctx.beginPath();
     ctx.ellipse(pondX, pondY, pondRadius, pondRadius * 0.7, Math.PI / 6, 0, Math.PI * 2);
-    ctx.fillStyle = '#38bdf8'; // Water blue
+    const waterGrad = ctx.createRadialGradient(pondX - 10, pondY - 10, 5, pondX, pondY, pondRadius);
+    waterGrad.addColorStop(0, '#7dd3fc');
+    waterGrad.addColorStop(0.7, '#0284c7');
+    waterGrad.addColorStop(1, '#0369a1');
+    ctx.fillStyle = waterGrad;
     ctx.fill();
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2.5;
     ctx.strokeStyle = '#0284c7';
     ctx.stroke();
 
-    // Water ripple effect
+    // Water ripples
     ctx.beginPath();
-    ctx.ellipse(pondX - 10, pondY + 5, pondRadius * 0.5, pondRadius * 0.35, Math.PI / 6, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-    ctx.lineWidth = 1.5;
+    ctx.ellipse(pondX - 12, pondY + 6, pondRadius * 0.5, pondRadius * 0.3, Math.PI / 6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+    ctx.lineWidth = 1.8;
     ctx.stroke();
 
-    // Water label & Lilypad
-    ctx.font = '14px sans-serif';
+    // Lilypad & Reed
+    ctx.font = '15px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('🪷', pondX - 20, pondY - 10);
+    ctx.fillText('🪷', pondX - 22, pondY - 8);
+    ctx.fillText('🌾', pondX + 28, pondY + 16);
+    ctx.font = 'bold 11px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = 4;
     ctx.fillText('🌊 생태 연못', pondX, pondY + 12);
     ctx.restore();
 
@@ -487,22 +572,38 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
     const rockX = 100;
     const rockY = height - 80;
     ctx.save();
-    ctx.font = '18px sans-serif';
+    // Rock shadow base
+    ctx.beginPath();
+    ctx.ellipse(rockX, rockY + 8, 38, 16, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.12)';
+    ctx.fill();
+
+    ctx.font = '22px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('🪨', rockX, rockY);
-    ctx.fillText('🪨', rockX + 22, rockY + 10);
-    ctx.fillText('🪨', rockX - 18, rockY + 12);
-    ctx.font = '10px font-semibold sans-serif';
-    ctx.fillStyle = '#64748b';
-    ctx.fillText('바위 쉼터', rockX + 2, rockY + 28);
+    ctx.fillText('🪨', rockX + 24, rockY + 12);
+    ctx.fillText('🪨', rockX - 20, rockY + 14);
+    ctx.font = 'bold 11px sans-serif';
+    ctx.fillStyle = '#475569';
+    ctx.fillText('바위 쉼터', rockX + 2, rockY + 34);
+    ctx.restore();
+
+    // Wildflowers and Tree Clusters for Natural Aesthetic
+    ctx.save();
+    ctx.font = '13px sans-serif';
+    ctx.fillText('🌸', width * 0.15, height * 0.2);
+    ctx.fillText('🌼', width * 0.22, height * 0.25);
+    ctx.fillText('🌺', width * 0.7, height * 0.85);
+    ctx.fillText('🌳', width * 0.06, height * 0.1);
+    ctx.fillText('🌲', width * 0.92, height * 0.9);
     ctx.restore();
 
     // Wood / Border Fence Map Frame
     ctx.save();
-    ctx.strokeStyle = '#b45309';
-    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#92400e';
+    ctx.lineWidth = 5;
     ctx.strokeRect(6, 6, width - 12, height - 12);
-    // Corner posts
+    // Corner wooden posts
     const corners = [
       { x: 6, y: 6 },
       { x: width - 6, y: 6 },
@@ -512,7 +613,7 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
     corners.forEach((c) => {
       ctx.fillStyle = '#78350f';
       ctx.beginPath();
-      ctx.arc(c.x, c.y, 6, 0, Math.PI * 2);
+      ctx.arc(c.x, c.y, 7, 0, Math.PI * 2);
       ctx.fill();
     });
     ctx.restore();
