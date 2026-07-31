@@ -1,5 +1,5 @@
 {
-  "at": "2026-07-31T05:09:50.549Z",
+  "at": "2026-07-31T06:11:32.923Z",
   "url": "http://localhost:3000",
   "results": [
     {
@@ -8,8 +8,8 @@
       "observed": "server.ts:13 - Content-Security-Policy header configured",
       "evidence": {
         "header": "content-security-policy",
-        "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
-        "observedAt": "2026-07-31T05:09:50.005Z",
+        "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self' https:;img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "observedAt": "2026-07-31T06:11:32.712Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:13 - Content-Security-Policy header configured",
@@ -25,7 +25,7 @@
       "evidence": {
         "header": "strict-transport-security",
         "value": "max-age=63072000; includeSubDomains",
-        "observedAt": "2026-07-31T05:09:50.005Z",
+        "observedAt": "2026-07-31T06:11:32.713Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:14 - Strict-Transport-Security header configured",
@@ -41,7 +41,7 @@
       "evidence": {
         "header": "x-frame-options",
         "value": "SAMEORIGIN",
-        "observedAt": "2026-07-31T05:09:50.005Z",
+        "observedAt": "2026-07-31T06:11:32.713Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
@@ -57,7 +57,7 @@
       "evidence": {
         "header": "x-content-type-options",
         "value": "nosniff",
-        "observedAt": "2026-07-31T05:09:50.005Z",
+        "observedAt": "2026-07-31T06:11:32.713Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:16 - X-Content-Type-Options nosniff header configured",
@@ -73,7 +73,7 @@
       "evidence": {
         "header": "referrer-policy",
         "value": "strict-origin-when-cross-origin",
-        "observedAt": "2026-07-31T05:09:50.005Z",
+        "observedAt": "2026-07-31T06:11:32.713Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:17 - Referrer-Policy header configured",
@@ -89,7 +89,7 @@
       "evidence": {
         "header": "permissions-policy",
         "value": "camera=(), microphone=(), geolocation=()",
-        "observedAt": "2026-07-31T05:09:50.005Z",
+        "observedAt": "2026-07-31T06:11:32.713Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:18 - Permissions-Policy header configured",
@@ -250,9 +250,9 @@
     {
       "id": "perf.ttfb",
       "status": "pass",
-      "observed": "응답 시간 151ms",
+      "observed": "응답 시간 116ms",
       "evidence": {
-        "ms": 151
+        "ms": 116
       }
     },
     {
@@ -487,23 +487,30 @@
     "url": "http://localhost:3000",
     "finalUrl": "http://localhost:3000/",
     "httpStatus": 200,
-    "ttfbMs": 151,
+    "ttfbMs": 116,
     "observedHeaders": [
       "cache-control",
       "connection",
       "content-length",
       "content-security-policy",
       "content-type",
+      "cross-origin-opener-policy",
+      "cross-origin-resource-policy",
       "date",
       "etag",
       "keep-alive",
+      "origin-agent-cluster",
       "permissions-policy",
       "referrer-policy",
       "strict-transport-security",
       "vary",
       "x-content-type-options",
-      "x-frame-options"
+      "x-dns-prefetch-control",
+      "x-download-options",
+      "x-frame-options",
+      "x-permitted-cross-domain-policies",
+      "x-xss-protection"
     ],
-    "scannedAt": "2026-07-31T05:09:50.413Z"
+    "scannedAt": "2026-07-31T06:11:32.798Z"
   }
 }

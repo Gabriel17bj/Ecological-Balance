@@ -12,7 +12,7 @@
 - 마크 자격(critical/high 0): 미충족
 
 ### 통과 항목(증빙)
-- [v] Content-Security-Policy — 헤더값: default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'
+- [v] Content-Security-Policy — 헤더값: default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self' https:;img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
 - [v] Strict-Transport-Security — 헤더값: max-age=63072000; includeSubDomains
 - [v] 클릭재킹 방어(X-Frame-Options / frame-ancestors) — 헤더값: SAMEORIGIN
 - [v] X-Content-Type-Options: nosniff — 헤더값: nosniff
@@ -31,7 +31,7 @@
 - [v] 모바일 viewport — viewport 메타
 - [v] Open Graph — Open Graph 태그
 - [v] canonical — canonical 링크
-- [v] 응답 속도 — 응답 시간 151ms
+- [v] 응답 속도 — 응답 시간 116ms
 - [v] 문서 크기 — 문서 크기 3KB
 - [v] 개인정보처리방침 — server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149
 - [v] 이용약관 — 이용약관 발견(link: /terms)

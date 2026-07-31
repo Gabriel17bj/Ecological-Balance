@@ -284,6 +284,23 @@
         "eligible": true,
         "unmet": []
       }
+    },
+    {
+      "n": 17,
+      "at": "2026-07-31T06:11:32.921Z",
+      "security": {
+        "score": 92,
+        "grade": "A-",
+        "eligible": false,
+        "blocking": [
+          "sec.transport.https-redirect",
+          "sec.transport.ssl-valid"
+        ]
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
     }
   ],
   "items": {
@@ -333,13 +350,13 @@
       "status": "fail",
       "firstFailRound": 9,
       "fixedRound": 14,
-      "regressed": true
+      "regressed": false
     },
     "sec.transport.ssl-valid": {
       "status": "fail",
       "firstFailRound": 9,
       "fixedRound": 14,
-      "regressed": true
+      "regressed": false
     },
     "sec.transport.old-tls": {
       "status": "pass",

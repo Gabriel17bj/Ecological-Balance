@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import helmet from "helmet";
 import { createServer as createViteServer } from "vite";
 
 async function startServer() {
@@ -8,13 +9,28 @@ async function startServer() {
 
   app.disable("x-powered-by");
 
-  // Set Security Headers for dorms-check & production security
+  // Helmet middleware for automated security headers
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "blob:", "data:", "https:"],
+          frameAncestors: ["'self'", "https:"],
+          objectSrc: ["'none'"],
+          baseUri: ["'self'"],
+          formAction: ["'self'"],
+        },
+      },
+      crossOriginEmbedderPolicy: false,
+      referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+      hsts: { maxAge: 63072000, includeSubDomains: true },
+    })
+  );
+
+  // Additional custom security response headers
   app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'");
-    res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains");
     res.setHeader("X-Frame-Options", "SAMEORIGIN");
     res.setHeader("X-Content-Type-Options", "nosniff");
-    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
     next();
   });
