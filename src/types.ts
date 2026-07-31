@@ -6,6 +6,8 @@ export type ToolType = 'select' | 'grass' | 'rabbit' | 'wolf' | 'eagle' | 'rain'
 
 export type GameMode = 'challenge' | 'sandbox';
 
+export type ActivityMode = 'auto' | 'manual';
+
 export interface Entity {
   id: string;
   type: EntityType;

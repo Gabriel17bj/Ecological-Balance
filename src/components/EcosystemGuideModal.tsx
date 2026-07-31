@@ -73,7 +73,7 @@ export const EcosystemGuideModal: React.FC<EcosystemGuideModalProps> = ({ isOpen
                   🎯 게임의 목표
                 </h3>
                 <p className="text-emerald-800">
-                  제한시간(30초~90초) 동안 <strong>풀(🌿), 토끼(🐇), 늑대(🐺)</strong> 등 모든 생물 종이 멸종하지 않고 서로 상호작용하며 건강한 균형을 유지하도록 수호하는 것입니다!
+                  제한시간(20초~90초) 동안 <strong>풀(🌿), 토끼(🐇), 늑대(🐺)</strong> 등 모든 생물 종이 멸종하지 않고 서로 상호작용하며 건강한 균형을 유지하도록 수호하는 것입니다!
                 </p>
               </div>
 

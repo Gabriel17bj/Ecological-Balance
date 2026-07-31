@@ -597,7 +597,7 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
 
     // Wildflowers and Tree Clusters for Natural Aesthetic
     ctx.save();
-    ctx.font = '13px sans-serif';
+    ctx.font = '22px sans-serif';
     ctx.fillText('🌸', width * 0.15, height * 0.2);
     ctx.fillText('🌼', width * 0.22, height * 0.25);
     ctx.fillText('🌺', width * 0.7, height * 0.85);
@@ -660,13 +660,13 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
       }
 
       if (e.type === 'grass') {
-        ctx.font = `${Math.floor(e.size)}px sans-serif`;
+        ctx.font = `${Math.max(26, Math.floor(e.size * 1.5))}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('🌿', 0, 0);
       } else if (e.type === 'rabbit') {
         const emoji = e.isBaby ? '🐇' : '🐰';
-        ctx.font = `${e.isBaby ? 18 : 24}px sans-serif`;
+        ctx.font = `${e.isBaby ? 24 : 32}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(emoji, 0, 0);
@@ -674,72 +674,72 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
         // State indicator icon
         if (e.state === 'breeding') {
           ctx.save();
-          ctx.font = 'bold 11px sans-serif';
+          ctx.font = 'bold 13px sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
 
           const text = '💕 번식 중...';
           const textMetrics = ctx.measureText(text);
-          const bgW = textMetrics.width + 10;
-          const bgH = 18;
+          const bgW = textMetrics.width + 12;
+          const bgH = 22;
           const bgX = -bgW / 2;
-          const bgY = -28;
+          const bgY = -34;
 
           ctx.fillStyle = 'rgba(255, 241, 242, 0.95)';
           ctx.strokeStyle = '#f43f5e';
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = 1.8;
 
           ctx.beginPath();
-          ctx.roundRect(bgX, bgY, bgW, bgH, 8);
+          ctx.roundRect(bgX, bgY, bgW, bgH, 10);
           ctx.fill();
           ctx.stroke();
 
           ctx.fillStyle = '#be123c';
-          ctx.fillText(text, 0, bgY + 9);
+          ctx.fillText(text, 0, bgY + 11);
           ctx.restore();
         } else if (e.state === 'fleeing') {
-          ctx.font = '10px sans-serif';
-          ctx.fillText('💨', 12, -12);
+          ctx.font = '14px sans-serif';
+          ctx.fillText('💨', 16, -16);
         } else if (e.state === 'grazing') {
-          ctx.font = '10px sans-serif';
-          ctx.fillText('🍽️', 12, -12);
+          ctx.font = '14px sans-serif';
+          ctx.fillText('🍽️', 16, -16);
         }
 
         // Energy Bar
-        const barW = 22;
-        const barH = 4;
+        const barW = 28;
+        const barH = 5;
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.fillRect(-barW / 2, -18, barW, barH);
+        ctx.fillRect(-barW / 2, -22, barW, barH);
         ctx.fillStyle = e.energy > 40 ? '#22c55e' : '#ef4444';
-        ctx.fillRect(-barW / 2, -18, Math.max(0, (e.energy / e.maxEnergy) * barW), barH);
+        ctx.fillRect(-barW / 2, -22, Math.max(0, (e.energy / e.maxEnergy) * barW), barH);
       } else if (e.type === 'wolf') {
-        ctx.font = `${e.isBaby ? 20 : 28}px sans-serif`;
+        ctx.font = `${e.isBaby ? 28 : 38}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('🐺', 0, 0);
 
         // State indicator icon
         if (e.state === 'hunting') {
-          ctx.font = '11px sans-serif';
-          ctx.fillText('🏹', 14, -14);
+          ctx.font = '15px sans-serif';
+          ctx.fillText('🏹', 18, -18);
         }
 
         // Energy Bar
-        const barW = 26;
-        const barH = 4;
+        const barW = 32;
+        const barH = 5;
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.fillRect(-barW / 2, -22, barW, barH);
+        ctx.fillRect(-barW / 2, -26, barW, barH);
         ctx.fillStyle = e.energy > 40 ? '#f59e0b' : '#ef4444';
-        ctx.fillRect(-barW / 2, -22, Math.max(0, (e.energy / e.maxEnergy) * barW), barH);
+        ctx.fillRect(-barW / 2, -26, Math.max(0, (e.energy / e.maxEnergy) * barW), barH);
       } else if (e.type === 'eagle') {
         ctx.shadowColor = 'rgba(0,0,0,0.3)';
         ctx.shadowOffsetY = 12;
-        ctx.font = '32px sans-serif';
+        ctx.font = '42px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('🦅', 0, 0);
       } else if (e.type === 'carcass') {
-        ctx.font = '20px sans-serif';
+        ctx.font = '28px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('💀', 0, 0);

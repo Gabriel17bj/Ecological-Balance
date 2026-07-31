@@ -4,6 +4,7 @@ import {
   WeatherCondition, 
   ToolType, 
   GameMode, 
+  ActivityMode,
   ChallengeLevel, 
   SanctuaryZone, 
   FloatingText, 
@@ -27,6 +28,7 @@ import { Leaf, BookOpen, ShieldCheck, HelpCircle, Volume2, VolumeX, Sparkles, Fi
 export default function App() {
   // Game Setup State
   const [gameMode, setGameMode] = useState<GameMode>('challenge');
+  const [activityMode, setActivityMode] = useState<ActivityMode>('auto');
   const [currentLevel, setCurrentLevel] = useState<ChallengeLevel>(LEVEL_PRESETS[0]);
   const [completedLevelIds, setCompletedLevelIds] = useState<number[]>([]);
 
@@ -360,6 +362,167 @@ export default function App() {
     addFloatingText('🐇 토끼 +5 방사 완료!', 350, 220, '#3b82f6');
   };
 
+  // Manual Mode Operational Handlers
+  const handleManualStep = () => {
+    setTimer((prev) => prev + 1);
+    const grass = entities.filter((e) => e.type === 'grass').length;
+    const rabbits = entities.filter((e) => e.type === 'rabbit').length;
+    const wolves = entities.filter((e) => e.type === 'wolf').length;
+    const eagles = entities.filter((e) => e.type === 'eagle').length;
+    const balance = calculateBalanceIndex();
+
+    setPopulationLogs((prev) => [
+      ...prev.slice(-59),
+      {
+        time: timer + 1,
+        timeFormatted: `${timer + 1}초`,
+        grass,
+        rabbits,
+        wolves,
+        eagles,
+        balanceIndex: balance
+      }
+    ]);
+    addFloatingText('⏭️ 1초 진행 완료', 350, 180, '#6366f1');
+  };
+
+  const handleManualBreed = () => {
+    const rabbits = entities.filter((e) => e.type === 'rabbit' && e.energy > 45);
+    if (rabbits.length === 0) {
+      addFloatingText('⚠️ 번식 가능 에너지를 가진 토끼가 부족합니다!', 350, 200, '#f43f5e');
+      return;
+    }
+
+    const babies: Entity[] = [];
+    rabbits.forEach((r, idx) => {
+      if (idx % 2 === 0) {
+        babies.push({
+          id: `manual_baby_${Date.now()}_${idx}`,
+          type: 'rabbit',
+          x: r.x + (Math.random() - 0.5) * 30,
+          y: r.y + (Math.random() - 0.5) * 30,
+          vx: (Math.random() - 0.5) * 35,
+          vy: (Math.random() - 0.5) * 35,
+          energy: 60,
+          maxEnergy: 100,
+          age: 0,
+          maxAge: 80,
+          size: 16,
+          state: 'idle',
+          birthTime: performance.now(),
+          isBaby: true
+        });
+      }
+    });
+
+    soundManager.playRabbitHop();
+    setEntities((prev) => [...prev, ...babies]);
+    addFloatingText(`💕 수동 번식 성공! (아기 토끼 +${babies.length || 1})`, 350, 200, '#ec4899');
+  };
+
+  const handleManualAddWolf = () => {
+    const width = 700;
+    const height = 450;
+    const wolves: Entity[] = [];
+    for (let i = 0; i < 2; i++) {
+      wolves.push({
+        id: `manual_wolf_${Date.now()}_${i}`,
+        type: 'wolf',
+        x: 50 + Math.random() * (width - 100),
+        y: 50 + Math.random() * (height - 100),
+        vx: (Math.random() - 0.5) * 40,
+        vy: (Math.random() - 0.5) * 40,
+        energy: 85,
+        maxEnergy: 120,
+        age: 5,
+        maxAge: 100,
+        size: 26,
+        state: 'idle',
+        birthTime: performance.now()
+      });
+    }
+    soundManager.playWolfHowl();
+    setEntities((prev) => [...prev, ...wolves]);
+    addFloatingText('🐺 수동 늑대 +2 방사!', 350, 200, '#f59e0b');
+  };
+
+  const handleManualAddEagle = () => {
+    const width = 700;
+    const height = 450;
+    const eagle: Entity = {
+      id: `manual_eagle_${Date.now()}`,
+      type: 'eagle',
+      x: 100 + Math.random() * (width - 200),
+      y: 100 + Math.random() * (height - 200),
+      vx: (Math.random() - 0.5) * 55,
+      vy: (Math.random() - 0.5) * 55,
+      energy: 95,
+      maxEnergy: 150,
+      age: 8,
+      maxAge: 120,
+      size: 28,
+      state: 'idle',
+      birthTime: performance.now()
+    };
+    soundManager.playClick();
+    setEntities((prev) => [...prev, eagle]);
+    addFloatingText('🦅 수동 독수리 +1 등판!', 350, 200, '#8b5cf6');
+  };
+
+  const handleManualClearAll = () => {
+    soundManager.playClick();
+    setEntities([]);
+    addFloatingText('🧹 수동 전체 개체 청소 완료', 350, 200, '#ef4444');
+  };
+
+  const handleManualRain = () => {
+    soundManager.playRain();
+    setWeather('rainy');
+    setEntities((prev) =>
+      prev.map((e) => (e.type === 'grass' ? { ...e, energy: Math.min(e.maxEnergy, e.energy + 40) } : e))
+    );
+    addFloatingText('🌧️ 수동 단비 가동! 풀 수분 충전', 350, 200, '#0284c7');
+  };
+
+  const handleManualFertilizer = () => {
+    soundManager.playPlantSeed();
+    const width = 700;
+    const height = 450;
+    const fertGrass: Entity[] = [];
+    for (let i = 0; i < 6; i++) {
+      fertGrass.push({
+        id: `manual_fert_${Date.now()}_${i}`,
+        type: 'grass',
+        x: 40 + Math.random() * (width - 80),
+        y: 40 + Math.random() * (height - 80),
+        vx: 0,
+        vy: 0,
+        energy: 85,
+        maxEnergy: 100,
+        age: 0,
+        maxAge: 120,
+        size: 16,
+        state: 'idle',
+        birthTime: performance.now()
+      });
+    }
+    setEntities((prev) => [...prev, ...fertGrass]);
+    addFloatingText('🧪 수동 천연 비료 투입!', 350, 200, '#16a34a');
+  };
+
+  const handleManualDisaster = () => {
+    soundManager.playClick();
+    if (weather === 'drought') {
+      setWeather('sunny');
+      setEventMessage(null);
+      addFloatingText('☀️ 가뭄 해제 -> 맑음 전환', 350, 200, '#eab308');
+    } else {
+      setWeather('drought');
+      setEventMessage('☀️ 수동 가뭄 발령! 풀 성장이 저해됩니다.');
+      addFloatingText('☀️ 수동 가뭄 재해 발령!', 350, 200, '#f97316');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 text-slate-800 font-sans p-3 sm:p-6 flex flex-col items-center">
       <div className="w-full max-w-5xl space-y-4">
@@ -466,11 +629,21 @@ export default function App() {
           weather={weather}
           setWeather={setWeather}
           gameMode={gameMode}
+          activityMode={activityMode}
+          setActivityMode={setActivityMode}
           onResetGame={() => initLevel(currentLevel)}
           soundEnabled={soundEnabled}
           setSoundEnabled={setSoundEnabled}
           onQuickAddGrass={handleQuickAddGrass}
           onQuickAddRabbits={handleQuickAddRabbits}
+          onManualStep={handleManualStep}
+          onManualBreed={handleManualBreed}
+          onManualAddWolf={handleManualAddWolf}
+          onManualAddEagle={handleManualAddEagle}
+          onManualClearAll={handleManualClearAll}
+          onManualRain={handleManualRain}
+          onManualFertilizer={handleManualFertilizer}
+          onManualDisaster={handleManualDisaster}
         />
 
         {/* Live Population Graph Chart */}
