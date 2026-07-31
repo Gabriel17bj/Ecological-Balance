@@ -20,8 +20,9 @@ import { EntityDetailDrawer } from './components/EntityDetailDrawer';
 import { DisasterEventBanner } from './components/DisasterEventBanner';
 import { LevelResultModal } from './components/LevelResultModal';
 import { ReflectionReportModal } from './components/ReflectionReportModal';
+import { PrivacyPolicyModal } from './components/PrivacyPolicyModal';
 import { soundManager } from './utils/sound';
-import { Leaf, BookOpen, ShieldCheck, HelpCircle, Volume2, VolumeX, Sparkles, FileText } from 'lucide-react';
+import { Leaf, BookOpen, ShieldCheck, HelpCircle, Volume2, VolumeX, Sparkles, FileText, Lock } from 'lucide-react';
 
 export default function App() {
   // Game Setup State
@@ -50,7 +51,15 @@ export default function App() {
   // Modals & Results
   const [guideModalOpen, setGuideModalOpen] = useState<boolean>(false);
   const [reflectionModalOpen, setReflectionModalOpen] = useState<boolean>(false);
+  const [privacyModalOpen, setPrivacyModalOpen] = useState<boolean>(false);
   const [gameResult, setGameResult] = useState<{ status: 'victory' | 'defeat' | null; reason?: string }>({ status: null });
+
+  // Auto-open privacy modal if accessed via /privacy route
+  useEffect(() => {
+    if (window.location.pathname === '/privacy') {
+      setPrivacyModalOpen(true);
+    }
+  }, []);
 
   // Floating text helper
   const addFloatingText = useCallback((text: string, x: number, y: number, color = '#22c55e') => {
@@ -392,6 +401,18 @@ export default function App() {
               <FileText className="w-4 h-4 text-amber-300" />
               <span>📝 탐구 보고서 & PDF 저장</span>
             </button>
+
+            <button
+              onClick={() => {
+                soundManager.playClick();
+                setPrivacyModalOpen(true);
+              }}
+              className="flex items-center space-x-1.5 px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-slate-200 rounded-2xl text-xs font-bold transition-all shadow-md hover:scale-102"
+              title="개인정보 처리방침"
+            >
+              <Lock className="w-3.5 h-3.5 text-emerald-400" />
+              <span>개인정보 처리방침</span>
+            </button>
           </div>
         </header>
 
@@ -454,6 +475,28 @@ export default function App() {
 
         {/* Live Population Graph Chart */}
         <PopulationChart data={populationLogs} />
+
+        {/* Footer with Educational Purpose & Privacy Policy Link */}
+        <footer className="w-full max-w-5xl mt-8 pt-4 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2 pb-6">
+          <p className="leading-relaxed">
+            🌱 <strong>제작 목적:</strong> 중학생 들이 생태계 균형을 직접 만들어 보고 게임을 통하여 자신의 생각을 정리하며 생태계 보전에 대한 학습을 할 수 있도록 만들었습니다.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-medium text-slate-600">
+            <span>개발자: Gabriel Math (Gabriel Byeongje Jeon)</span>
+            <span>|</span>
+            <span>문의: gabriel@gabrielmath.kr</span>
+            <span>|</span>
+            <button
+              onClick={() => {
+                soundManager.playClick();
+                setPrivacyModalOpen(true);
+              }}
+              className="text-emerald-700 font-bold hover:underline flex items-center gap-1"
+            >
+              <Lock className="w-3 h-3 text-emerald-600" /> 개인정보 처리방침
+            </button>
+          </div>
+        </footer>
       </div>
 
       {/* Entity Inspector Drawer */}
@@ -493,6 +536,12 @@ export default function App() {
         wolfCount={entities.filter((e) => e.type === 'wolf').length}
         eagleCount={entities.filter((e) => e.type === 'eagle').length}
         elapsedTime={timer}
+      />
+
+      {/* Privacy Policy Modal */}
+      <PrivacyPolicyModal
+        isOpen={privacyModalOpen}
+        onClose={() => setPrivacyModalOpen(false)}
       />
     </div>
   );
