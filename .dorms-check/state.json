@@ -222,6 +222,23 @@
         "eligible": true,
         "unmet": []
       }
+    },
+    {
+      "n": 13,
+      "at": "2026-07-31T04:59:46.205Z",
+      "security": {
+        "score": 92,
+        "grade": "A-",
+        "eligible": false,
+        "blocking": [
+          "sec.transport.https-redirect",
+          "sec.transport.ssl-valid"
+        ]
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
     }
   ],
   "items": {

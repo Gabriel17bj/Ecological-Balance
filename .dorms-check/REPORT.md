@@ -30,7 +30,7 @@
 - [v] 설명 메타 — 설명 메타
 - [v] 모바일 viewport — viewport 메타
 - [v] Open Graph — Open Graph 태그
-- [v] 응답 속도 — 응답 시간 121ms
+- [v] 응답 속도 — 응답 시간 112ms
 - [v] 문서 크기 — 문서 크기 2KB
 - [v] 개인정보처리방침 — server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149
 - [v] 이용약관 — 이용약관 발견(link: /terms)
