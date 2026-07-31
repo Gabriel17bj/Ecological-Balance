@@ -74,6 +74,8 @@ export const EntityDetailDrawer: React.FC<EntityDetailDrawerProps> = ({
             <span className="font-bold text-slate-700 capitalize">
               {entity.state === 'grazing'
                 ? '🌾 섭식 중'
+                : entity.state === 'breeding'
+                ? '💕 번식 중 (짝짓기)'
                 : entity.state === 'hunting'
                 ? '🍖 사냥 중'
                 : entity.state === 'fleeing'
@@ -82,6 +84,20 @@ export const EntityDetailDrawer: React.FC<EntityDetailDrawerProps> = ({
             </span>
           </div>
         </div>
+
+        {/* Rabbit Reproduction Guide Info */}
+        {entity.type === 'rabbit' && (
+          <div className="bg-rose-50/90 border border-rose-200 p-2.5 rounded-xl space-y-1 text-rose-900">
+            <div className="font-bold flex items-center gap-1 text-xs text-rose-800">
+              <Heart className="w-3.5 h-3.5 text-rose-600 fill-rose-500" /> 토끼 번식 가이드
+            </div>
+            <p className="text-[10px] text-rose-700 leading-tight">
+              · <strong>번식 조건:</strong> 풀(🌿)을 먹어 에너지가 70 이상 충전된 성체 토끼가 짝을 만남<br />
+              · <strong>번식 행동:</strong> 1~2초간 자리에 머무르며 [💕 번식 중...] 상태로 짝짓기 진행<br />
+              · <strong>번식 결과:</strong> 에너지를 30 소모하여 1마리의 아기 토끼(🐇) 출산
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Action Buttons */}

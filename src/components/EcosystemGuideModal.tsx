@@ -130,7 +130,7 @@ export const EcosystemGuideModal: React.FC<EcosystemGuideModalProps> = ({ isOpen
                 <div className="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl text-center space-y-1">
                   <div className="text-3xl">🐇</div>
                   <div className="font-extrabold text-blue-900 text-xs">2단계: 1차 소비자 (토끼)</div>
-                  <p className="text-[10px] text-blue-700">풀을 먹고 에너지를 얻는 초식동물. 에너지가 많아지면 스스로 번식함</p>
+                  <p className="text-[10px] text-blue-700">풀을 먹고 에너지를 충전. 에너지 70% 이상 시 짝을 만나 머물며 [💕 번식 중] 상태로 새끼를 낳음</p>
                 </div>
 
                 <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-center space-y-1">
@@ -144,6 +144,17 @@ export const EcosystemGuideModal: React.FC<EcosystemGuideModalProps> = ({ isOpen
                   <div className="font-extrabold text-purple-900 text-xs">4단계: 최상위 포식자 (독수리)</div>
                   <p className="text-[10px] text-purple-700">하늘을 날며 토끼 및 어린 늑대를 포획하는 최상위 포식자</p>
                 </div>
+              </div>
+
+              <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl space-y-2">
+                <h4 className="font-extrabold text-rose-900 text-xs flex items-center gap-1.5">
+                  💕 토끼의 번식 메커니즘 & 머무름 동작 안내
+                </h4>
+                <p className="text-[11px] text-rose-800 leading-relaxed">
+                  · <strong>번식 유인 조건:</strong> 토끼가 충분한 양의 풀(🌿)을 마구 먹어서 <strong>에너지 수치가 70% 이상</strong>이 되고 성체(3초 이상)가 되면 짝짓기 준비 상태가 됩니다.<br />
+                  · <strong>자리에 머무르는 이유 ([💕 번식 중...]):</strong> 에너지가 높은 다른 토끼와 근접(50픽셀 이내)하게 되면 이동을 멈추고 자리에 머무르며 <strong>[💕 번식 중...]</strong> 표시를 띄웁니다.<br />
+                  · <strong>출산 및 에너토 소모:</strong> 약 1~2초간 머물며 번식을 마치면 <strong>1마리의 아기 토끼(🐇)</strong>가 출생하며, 부모 토끼는 출산 에너지 30이 소모됩니다.
+                </p>
               </div>
 
               <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">

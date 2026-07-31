@@ -259,32 +259,39 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
               }
 
               // Rabbit reproduction if high energy & partner nearby
-              if (updated.energy > 75 && updated.age > 5) {
+              if (updated.energy > 70 && updated.age > 3) {
                 const partner = prevEntities.find((e) => {
-                  if (e.type !== 'rabbit' || e.id === updated.id || e.energy <= 75) return false;
-                  return Math.hypot(e.x - updated.x, e.y - updated.y) < 25;
+                  if (e.type !== 'rabbit' || e.id === updated.id || e.energy <= 70) return false;
+                  return Math.hypot(e.x - updated.x, e.y - updated.y) < 50;
                 });
 
-                if (partner && Math.random() < 0.08 * dt) {
-                  updated.energy -= 30;
-                  spawnedEntities.push({
-                    id: `rabbit_baby_${Date.now()}_${Math.random()}`,
-                    type: 'rabbit',
-                    x: updated.x + (Math.random() - 0.5) * 20,
-                    y: updated.y + (Math.random() - 0.5) * 20,
-                    vx: (Math.random() - 0.5) * 35,
-                    vy: (Math.random() - 0.5) * 35,
-                    energy: 50,
-                    maxEnergy: 100,
-                    age: 0,
-                    maxAge: 70,
-                    size: 14,
-                    state: 'idle',
-                    birthTime: now,
-                    isBaby: true
-                  });
-                  soundManager.playRabbitHop();
-                  addFloatingText('💕 번식!', updated.x, updated.y - 15, '#ec4899');
+                if (partner) {
+                  // Partner found -> Both enter breeding state and stay in place (머물러서 번식)
+                  updated.state = 'breeding';
+                  updated.vx *= 0.1;
+                  updated.vy *= 0.1;
+
+                  if (Math.random() < 0.15 * dt) {
+                    updated.energy -= 30;
+                    spawnedEntities.push({
+                      id: `rabbit_baby_${Date.now()}_${Math.random()}`,
+                      type: 'rabbit',
+                      x: updated.x + (Math.random() - 0.5) * 20,
+                      y: updated.y + (Math.random() - 0.5) * 20,
+                      vx: (Math.random() - 0.5) * 35,
+                      vy: (Math.random() - 0.5) * 35,
+                      energy: 55,
+                      maxEnergy: 100,
+                      age: 0,
+                      maxAge: 70,
+                      size: 14,
+                      state: 'idle',
+                      birthTime: now,
+                      isBaby: true
+                    });
+                    soundManager.playRabbitHop();
+                    addFloatingText('💕 번식 성공! (🐇 +1)', updated.x, updated.y - 20, '#f43f5e');
+                  }
                 }
               }
             }
@@ -665,7 +672,32 @@ export const EcosystemCanvas: React.FC<EcosystemCanvasProps> = ({
         ctx.fillText(emoji, 0, 0);
 
         // State indicator icon
-        if (e.state === 'fleeing') {
+        if (e.state === 'breeding') {
+          ctx.save();
+          ctx.font = 'bold 11px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          const text = '💕 번식 중...';
+          const textMetrics = ctx.measureText(text);
+          const bgW = textMetrics.width + 10;
+          const bgH = 18;
+          const bgX = -bgW / 2;
+          const bgY = -28;
+
+          ctx.fillStyle = 'rgba(255, 241, 242, 0.95)';
+          ctx.strokeStyle = '#f43f5e';
+          ctx.lineWidth = 1.5;
+
+          ctx.beginPath();
+          ctx.roundRect(bgX, bgY, bgW, bgH, 8);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = '#be123c';
+          ctx.fillText(text, 0, bgY + 9);
+          ctx.restore();
+        } else if (e.state === 'fleeing') {
           ctx.font = '10px sans-serif';
           ctx.fillText('💨', 12, -12);
         } else if (e.state === 'grazing') {

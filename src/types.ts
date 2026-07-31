@@ -18,7 +18,7 @@ export interface Entity {
   age: number;
   maxAge: number;
   size: number;
-  state: 'idle' | 'hunting' | 'fleeing' | 'mating' | 'grazing';
+  state: 'idle' | 'hunting' | 'fleeing' | 'mating' | 'grazing' | 'breeding';
   targetX?: number;
   targetY?: number;
   birthTime: number;
