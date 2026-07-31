@@ -1,65 +1,101 @@
 {
-  "at": "2026-07-31T04:45:43.606Z",
+  "at": "2026-07-31T04:54:58.421Z",
   "url": "http://localhost:3000",
   "results": [
     {
       "id": "sec.header.csp",
       "status": "pass",
-      "observed": "content-security-policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
+      "observed": "server.ts:13 - Content-Security-Policy header configured",
       "evidence": {
         "header": "content-security-policy",
         "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
-        "observedAt": "2026-07-31T04:45:43.032Z"
+        "observedAt": "2026-07-31T04:54:58.144Z",
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:13 - Content-Security-Policy header configured",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
       "id": "sec.header.hsts",
       "status": "pass",
-      "observed": "strict-transport-security: max-age=63072000; includeSubDomains",
+      "observed": "server.ts:14 - Strict-Transport-Security header configured",
       "evidence": {
         "header": "strict-transport-security",
         "value": "max-age=63072000; includeSubDomains",
-        "observedAt": "2026-07-31T04:45:43.032Z"
+        "observedAt": "2026-07-31T04:54:58.144Z",
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:14 - Strict-Transport-Security header configured",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
       "id": "sec.header.frame",
       "status": "pass",
-      "observed": "x-frame-options: SAMEORIGIN",
+      "observed": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
       "evidence": {
         "header": "x-frame-options",
         "value": "SAMEORIGIN",
-        "observedAt": "2026-07-31T04:45:43.032Z"
+        "observedAt": "2026-07-31T04:54:58.144Z",
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
       "id": "sec.header.nosniff",
       "status": "pass",
-      "observed": "x-content-type-options: nosniff",
+      "observed": "server.ts:16 - X-Content-Type-Options nosniff header configured",
       "evidence": {
         "header": "x-content-type-options",
         "value": "nosniff",
-        "observedAt": "2026-07-31T04:45:43.032Z"
+        "observedAt": "2026-07-31T04:54:58.144Z",
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:16 - X-Content-Type-Options nosniff header configured",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
       "id": "sec.header.referrer",
       "status": "pass",
-      "observed": "referrer-policy: strict-origin-when-cross-origin",
+      "observed": "server.ts:17 - Referrer-Policy header configured",
       "evidence": {
         "header": "referrer-policy",
         "value": "strict-origin-when-cross-origin",
-        "observedAt": "2026-07-31T04:45:43.032Z"
+        "observedAt": "2026-07-31T04:54:58.144Z",
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:17 - Referrer-Policy header configured",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
       "id": "sec.header.permissions",
       "status": "pass",
-      "observed": "permissions-policy: camera=(), microphone=(), geolocation=()",
+      "observed": "server.ts:18 - Permissions-Policy header configured",
       "evidence": {
         "header": "permissions-policy",
         "value": "camera=(), microphone=(), geolocation=()",
-        "observedAt": "2026-07-31T04:45:43.032Z"
+        "observedAt": "2026-07-31T04:54:58.144Z",
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:18 - Permissions-Policy header configured",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
@@ -214,9 +250,9 @@
     {
       "id": "perf.ttfb",
       "status": "pass",
-      "observed": "응답 시간 150ms",
+      "observed": "응답 시간 121ms",
       "evidence": {
-        "ms": 150
+        "ms": 121
       }
     },
     {
@@ -224,7 +260,7 @@
       "status": "pass",
       "observed": "문서 크기 2KB",
       "evidence": {
-        "bytes": 1637
+        "bytes": 1834
       }
     },
     {
@@ -238,23 +274,27 @@
     {
       "id": "legal.privacy-policy",
       "status": "pass",
-      "observed": "개인정보처리방침 발견(path: /privacy)",
+      "observed": "server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149",
       "evidence": {
         "found": true,
-        "via": "path",
+        "via": "link",
         "where": "/privacy",
-        "status": 200
+        "aiJudgment": {
+          "status": "pass",
+          "evidence": "server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149",
+          "by": "teacher-assistant",
+          "at": "2026-07-31T04:54:47.538Z"
+        }
       }
     },
     {
       "id": "legal.terms",
       "status": "pass",
-      "observed": "이용약관 발견(path: /terms)",
+      "observed": "이용약관 발견(link: /terms)",
       "evidence": {
         "found": true,
-        "via": "path",
-        "where": "/terms",
-        "status": 200
+        "via": "link",
+        "where": "/terms"
       }
     },
     {
@@ -328,52 +368,52 @@
     {
       "id": "edzip.1-1",
       "status": "pass",
-      "observed": "src/components/PrivacyPolicyModal.tsx:43-52, src/components/ReflectionReportModal.tsx:28-32",
+      "observed": "src/components/PrivacyPolicyModal.tsx:35-41",
       "evidence": {
         "aiJudgment": {
           "status": "pass",
-          "evidence": "src/components/PrivacyPolicyModal.tsx:43-52, src/components/ReflectionReportModal.tsx:28-32",
+          "evidence": "src/components/PrivacyPolicyModal.tsx:35-41",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
     {
       "id": "edzip.1-2",
       "status": "pass",
-      "observed": "src/components/PrivacyPolicyModal.tsx:37-41, src/App.tsx:473",
+      "observed": "src/components/PrivacyPolicyModal.tsx:43-48",
       "evidence": {
         "aiJudgment": {
           "status": "pass",
-          "evidence": "src/components/PrivacyPolicyModal.tsx:37-41, src/App.tsx:473",
+          "evidence": "src/components/PrivacyPolicyModal.tsx:43-48",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
     {
       "id": "edzip.1-3",
       "status": "pass",
-      "observed": "src/components/PrivacyPolicyModal.tsx:43-60",
+      "observed": "src/components/PrivacyPolicyModal.tsx:50-60",
       "evidence": {
         "aiJudgment": {
           "status": "pass",
-          "evidence": "src/components/PrivacyPolicyModal.tsx:43-60",
+          "evidence": "src/components/PrivacyPolicyModal.tsx:50-60",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
     {
       "id": "edzip.2-1",
       "status": "pass",
-      "observed": "server.ts:8-16, src/components/PrivacyPolicyModal.tsx:62-67",
+      "observed": "server.ts:12-20 & src/components/PrivacyPolicyModal.tsx:62-67",
       "evidence": {
         "aiJudgment": {
           "status": "pass",
-          "evidence": "server.ts:8-16, src/components/PrivacyPolicyModal.tsx:62-67",
+          "evidence": "server.ts:12-20 & src/components/PrivacyPolicyModal.tsx:62-67",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
@@ -386,7 +426,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:69-74",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
@@ -399,20 +439,20 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:76-81",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
     {
       "id": "edzip.5-1",
       "status": "pass",
-      "observed": "src/components/PrivacyPolicyModal.tsx:89-97, src/App.tsx:477",
+      "observed": "src/components/PrivacyPolicyModal.tsx:89-97",
       "evidence": {
         "aiJudgment": {
           "status": "pass",
-          "evidence": "src/components/PrivacyPolicyModal.tsx:89-97, src/App.tsx:477",
+          "evidence": "src/components/PrivacyPolicyModal.tsx:89-97",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
@@ -425,7 +465,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:83-87",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     },
@@ -438,7 +478,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:83-87",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:45:30.898Z"
+          "at": "2026-07-31T04:54:47.538Z"
         }
       }
     }
@@ -447,7 +487,7 @@
     "url": "http://localhost:3000",
     "finalUrl": "http://localhost:3000/",
     "httpStatus": 200,
-    "ttfbMs": 150,
+    "ttfbMs": 121,
     "observedHeaders": [
       "cache-control",
       "connection",
@@ -464,6 +504,6 @@
       "x-content-type-options",
       "x-frame-options"
     ],
-    "scannedAt": "2026-07-31T04:45:43.470Z"
+    "scannedAt": "2026-07-31T04:54:58.258Z"
   }
 }

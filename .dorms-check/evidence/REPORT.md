@@ -30,10 +30,10 @@
 - [v] 설명 메타 — 설명 메타
 - [v] 모바일 viewport — viewport 메타
 - [v] Open Graph — Open Graph 태그
-- [v] 응답 속도 — 응답 시간 150ms
+- [v] 응답 속도 — 응답 시간 121ms
 - [v] 문서 크기 — 문서 크기 2KB
-- [v] 개인정보처리방침 — 개인정보처리방침 발견(path: /privacy)
-- [v] 이용약관 — 이용약관 발견(path: /terms)
+- [v] 개인정보처리방침 — server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149
+- [v] 이용약관 — 이용약관 발견(link: /terms)
 - [v] 연락처 — 연락처/문의 정보 있음
 - [v] 하드코딩 시크릿 — 하드코딩 시크릿 미검출
 - [v] 클라이언트 시크릿 노출 — 클라 시크릿 노출 미검출

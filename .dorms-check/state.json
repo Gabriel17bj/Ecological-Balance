@@ -171,6 +171,57 @@
         "eligible": true,
         "unmet": []
       }
+    },
+    {
+      "n": 10,
+      "at": "2026-07-31T04:53:21.667Z",
+      "security": {
+        "score": 92,
+        "grade": "A-",
+        "eligible": false,
+        "blocking": [
+          "sec.transport.https-redirect",
+          "sec.transport.ssl-valid"
+        ]
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
+    },
+    {
+      "n": 11,
+      "at": "2026-07-31T04:54:18.979Z",
+      "security": {
+        "score": 92,
+        "grade": "A-",
+        "eligible": false,
+        "blocking": [
+          "sec.transport.https-redirect",
+          "sec.transport.ssl-valid"
+        ]
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
+    },
+    {
+      "n": 12,
+      "at": "2026-07-31T04:54:58.420Z",
+      "security": {
+        "score": 92,
+        "grade": "A-",
+        "eligible": false,
+        "blocking": [
+          "sec.transport.https-redirect",
+          "sec.transport.ssl-valid"
+        ]
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
     }
   ],
   "items": {
@@ -220,13 +271,13 @@
       "status": "fail",
       "firstFailRound": 9,
       "fixedRound": null,
-      "regressed": true
+      "regressed": false
     },
     "sec.transport.ssl-valid": {
       "status": "fail",
       "firstFailRound": 9,
       "fixedRound": null,
-      "regressed": true
+      "regressed": false
     },
     "sec.transport.old-tls": {
       "status": "pass",
