@@ -38,6 +38,22 @@ export default function App() {
   const [weather, setWeather] = useState<WeatherCondition>('sunny');
   const [eventMessage, setEventMessage] = useState<string | null>(null);
 
+  // Refs for current state to avoid resetting interval timer on entity state updates
+  const entitiesRef = useRef(entities);
+  useEffect(() => {
+    entitiesRef.current = entities;
+  }, [entities]);
+
+  const currentLevelRef = useRef(currentLevel);
+  useEffect(() => {
+    currentLevelRef.current = currentLevel;
+  }, [currentLevel]);
+
+  const gameModeRef = useRef(gameMode);
+  useEffect(() => {
+    gameModeRef.current = gameMode;
+  }, [gameMode]);
+
   // Playback State
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [gameSpeed, setGameSpeed] = useState<number>(1);
@@ -73,11 +89,11 @@ export default function App() {
   }, []);
 
   // Compute Ecosystem Health Index (0 - 100%)
-  const calculateBalanceIndex = useCallback(() => {
-    const grass = entities.filter((e) => e.type === 'grass').length;
-    const rabbits = entities.filter((e) => e.type === 'rabbit').length;
-    const wolves = entities.filter((e) => e.type === 'wolf').length;
-    const eagles = entities.filter((e) => e.type === 'eagle').length;
+  const calculateBalanceIndex = useCallback((currentEntities: Entity[] = entitiesRef.current) => {
+    const grass = currentEntities.filter((e) => e.type === 'grass').length;
+    const rabbits = currentEntities.filter((e) => e.type === 'rabbit').length;
+    const wolves = currentEntities.filter((e) => e.type === 'wolf').length;
+    const eagles = currentEntities.filter((e) => e.type === 'eagle').length;
 
     if (grass === 0 && rabbits === 0) return 0;
 
@@ -92,7 +108,7 @@ export default function App() {
       if (rabbits >= wolves * 1.8) score += 20;
       else if (rabbits < wolves) score -= 25;
     } else {
-      if (currentLevel.initialWolves > 0) score -= 20; // missing expected species
+      if (currentLevelRef.current.initialWolves > 0) score -= 20; // missing expected species
     }
 
     // Diversity bonus
@@ -100,7 +116,7 @@ export default function App() {
     score += speciesCount * 5;
 
     return Math.max(5, Math.min(100, Math.round(score)));
-  }, [entities, currentLevel]);
+  }, []);
 
   // Initializing Level
   const initLevel = useCallback((lvl: ChallengeLevel) => {
@@ -210,9 +226,12 @@ export default function App() {
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
         const nextTimer = prevTimer + 1;
+        const lvl = currentLevelRef.current;
+        const mode = gameModeRef.current;
+        const currentEntities = entitiesRef.current;
 
         // Weather Change Events in Challenge Mode
-        if (currentLevel.weatherEventsEnabled) {
+        if (lvl.weatherEventsEnabled) {
           if (nextTimer % 20 === 10) {
             setWeather('drought');
             setEventMessage('☀️ 극심한 가뭄 발령! 풀 성장이 저해됩니다.');
@@ -226,11 +245,11 @@ export default function App() {
         }
 
         // Log population for Recharts graph
-        const grass = entities.filter((e) => e.type === 'grass').length;
-        const rabbits = entities.filter((e) => e.type === 'rabbit').length;
-        const wolves = entities.filter((e) => e.type === 'wolf').length;
-        const eagles = entities.filter((e) => e.type === 'eagle').length;
-        const balance = calculateBalanceIndex();
+        const grass = currentEntities.filter((e) => e.type === 'grass').length;
+        const rabbits = currentEntities.filter((e) => e.type === 'rabbit').length;
+        const wolves = currentEntities.filter((e) => e.type === 'wolf').length;
+        const eagles = currentEntities.filter((e) => e.type === 'eagle').length;
+        const balance = calculateBalanceIndex(currentEntities);
 
         setPopulationLogs((prevLogs) => [
           ...prevLogs.slice(-59),
@@ -246,7 +265,7 @@ export default function App() {
         ]);
 
         // Check Victory / Defeat conditions in Challenge Mode
-        if (gameMode === 'challenge') {
+        if (mode === 'challenge') {
           // Defeat condition: Key species extinction
           if (rabbits === 0) {
             setGameResult({ status: 'defeat', reason: '😭 토끼가 모두 멸종했습니다!' });
@@ -258,19 +277,17 @@ export default function App() {
             setIsPaused(true);
             return nextTimer;
           }
-          if (currentLevel.initialWolves > 0 && wolves === 0) {
+          if (lvl.initialWolves > 0 && wolves === 0) {
             setGameResult({ status: 'defeat', reason: '🐺 늑대 무리가 굶어 죽어 멸종했습니다!' });
             setIsPaused(true);
             return nextTimer;
           }
 
           // Victory Condition: Reached target time with healthy ecosystem
-          if (nextTimer >= currentLevel.targetTime) {
+          if (nextTimer >= lvl.targetTime) {
             setGameResult({ status: 'victory' });
             setIsPaused(true);
-            if (!completedLevelIds.includes(currentLevel.id)) {
-              setCompletedLevelIds((prev) => [...prev, currentLevel.id]);
-            }
+            setCompletedLevelIds((prev) => (prev.includes(lvl.id) ? prev : [...prev, lvl.id]));
           }
         }
 
@@ -279,7 +296,7 @@ export default function App() {
     }, 1000 / gameSpeed);
 
     return () => clearInterval(interval);
-  }, [isPaused, gameSpeed, entities, currentLevel, gameMode, gameResult.status, completedLevelIds, calculateBalanceIndex]);
+  }, [isPaused, gameSpeed, gameResult.status, calculateBalanceIndex]);
 
   // Handle Level Transition
   const handleNextLevel = () => {
