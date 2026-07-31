@@ -16,16 +16,17 @@
     <meta property="og:image" content="https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/og-image.png" />
     <link rel="canonical" href="https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app" />
 
-    <!-- Security Meta Fallback -->
+    <!-- Security Meta Fallbacks for Crawlers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   </head>
   <body>
     <div id="root"></div>
-    <footer style="display:none;">
-      <a href="/privacy">개인정보처리방침</a>
-      <a href="/terms">이용약관</a>
-      <p>문의/연락처: gabriel@gabrielmath.kr</p>
+    <footer style="padding: 12px; text-align: center; font-size: 12px; color: #64748b; background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
+      <a href="/privacy" style="color: #059669; font-weight: bold; margin-right: 12px;" target="_blank">개인정보처리방침</a>
+      <a href="/terms" style="color: #059669; font-weight: bold; margin-right: 12px;" target="_blank">이용약관</a>
+      <span>문의/연락처: gabriel@gabrielmath.kr</span>
     </footer>
     <script type="module" src="/src/main.tsx"></script>
   </body>

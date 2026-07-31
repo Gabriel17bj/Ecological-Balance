@@ -267,6 +267,23 @@
         "eligible": true,
         "unmet": []
       }
+    },
+    {
+      "n": 16,
+      "at": "2026-07-31T05:09:50.548Z",
+      "security": {
+        "score": 92,
+        "grade": "A-",
+        "eligible": false,
+        "blocking": [
+          "sec.transport.https-redirect",
+          "sec.transport.ssl-valid"
+        ]
+      },
+      "edzip": {
+        "eligible": true,
+        "unmet": []
+      }
     }
   ],
   "items": {
@@ -313,16 +330,16 @@
       "regressed": false
     },
     "sec.transport.https-redirect": {
-      "status": "pass",
+      "status": "fail",
       "firstFailRound": 9,
       "fixedRound": 14,
-      "regressed": false
+      "regressed": true
     },
     "sec.transport.ssl-valid": {
-      "status": "pass",
+      "status": "fail",
       "firstFailRound": 9,
       "fixedRound": 14,
-      "regressed": false
+      "regressed": true
     },
     "sec.transport.old-tls": {
       "status": "pass",
@@ -379,9 +396,9 @@
       "regressed": false
     },
     "seo.description": {
-      "status": "fail",
+      "status": "pass",
       "firstFailRound": 1,
-      "fixedRound": 9,
+      "fixedRound": 16,
       "regressed": false
     },
     "seo.viewport": {
@@ -391,15 +408,15 @@
       "regressed": false
     },
     "seo.og": {
-      "status": "fail",
+      "status": "pass",
       "firstFailRound": 1,
-      "fixedRound": 9,
+      "fixedRound": 16,
       "regressed": false
     },
     "seo.canonical": {
-      "status": "info",
+      "status": "pass",
       "firstFailRound": null,
-      "fixedRound": null,
+      "fixedRound": 16,
       "regressed": false
     },
     "perf.ttfb": {
@@ -536,7 +553,7 @@
     }
   },
   "passed": {
-    "security": true,
+    "security": false,
     "edzip": true
   },
   "submitted": {}

@@ -1,6 +1,6 @@
 {
-  "at": "2026-07-31T05:04:46.530Z",
-  "url": "https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app",
+  "at": "2026-07-31T05:09:50.549Z",
+  "url": "http://localhost:3000",
   "results": [
     {
       "id": "sec.header.csp",
@@ -8,8 +8,8 @@
       "observed": "server.ts:13 - Content-Security-Policy header configured",
       "evidence": {
         "header": "content-security-policy",
-        "value": null,
-        "observedAt": "2026-07-31T05:04:46.271Z",
+        "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
+        "observedAt": "2026-07-31T05:09:50.005Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:13 - Content-Security-Policy header configured",
@@ -24,8 +24,8 @@
       "observed": "server.ts:14 - Strict-Transport-Security header configured",
       "evidence": {
         "header": "strict-transport-security",
-        "value": null,
-        "observedAt": "2026-07-31T05:04:46.271Z",
+        "value": "max-age=63072000; includeSubDomains",
+        "observedAt": "2026-07-31T05:09:50.005Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:14 - Strict-Transport-Security header configured",
@@ -40,8 +40,8 @@
       "observed": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
       "evidence": {
         "header": "x-frame-options",
-        "value": null,
-        "observedAt": "2026-07-31T05:04:46.271Z",
+        "value": "SAMEORIGIN",
+        "observedAt": "2026-07-31T05:09:50.005Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:15 - X-Frame-Options SAMEORIGIN header configured",
@@ -56,8 +56,8 @@
       "observed": "server.ts:16 - X-Content-Type-Options nosniff header configured",
       "evidence": {
         "header": "x-content-type-options",
-        "value": null,
-        "observedAt": "2026-07-31T05:04:46.271Z",
+        "value": "nosniff",
+        "observedAt": "2026-07-31T05:09:50.005Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:16 - X-Content-Type-Options nosniff header configured",
@@ -72,8 +72,8 @@
       "observed": "server.ts:17 - Referrer-Policy header configured",
       "evidence": {
         "header": "referrer-policy",
-        "value": null,
-        "observedAt": "2026-07-31T05:04:46.271Z",
+        "value": "strict-origin-when-cross-origin",
+        "observedAt": "2026-07-31T05:09:50.005Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:17 - Referrer-Policy header configured",
@@ -88,8 +88,8 @@
       "observed": "server.ts:18 - Permissions-Policy header configured",
       "evidence": {
         "header": "permissions-policy",
-        "value": null,
-        "observedAt": "2026-07-31T05:04:46.271Z",
+        "value": "camera=(), microphone=(), geolocation=()",
+        "observedAt": "2026-07-31T05:09:50.005Z",
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:18 - Permissions-Policy header configured",
@@ -104,34 +104,33 @@
       "observed": "x-powered-by 미노출(양호)",
       "evidence": {
         "poweredBy": null,
-        "server": "Google Frontend"
+        "server": null
       }
     },
     {
       "id": "sec.transport.https-redirect",
-      "status": "pass",
-      "observed": "HTTP 요청이 HTTPS로 리다이렉트됨 (HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/)",
+      "status": "fail",
+      "observed": "HTTP 요청이 HTTPS로 강제되지 않음 (HTTP 0)",
       "evidence": {
-        "httpProbe": "HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/",
-        "redirectsHttps": true
+        "httpProbe": "HTTP 0",
+        "redirectsHttps": false
       }
     },
     {
       "id": "sec.transport.ssl-valid",
-      "status": "pass",
-      "observed": "TLS 연결 성공 (TLSv1.3)",
+      "status": "fail",
+      "observed": "TLS 연결 실패: connect ECONNREFUSED 127.0.0.1:443",
       "evidence": {
-        "protocol": "TLSv1.3",
-        "authorized": true,
-        "authError": null
+        "protocol": null,
+        "error": "connect ECONNREFUSED 127.0.0.1:443"
       }
     },
     {
       "id": "sec.transport.old-tls",
       "status": "pass",
-      "observed": "TLS 버전 양호: TLSv1.3",
+      "observed": "TLS 버전 양호: (측정 실패)",
       "evidence": {
-        "protocol": "TLSv1.3"
+        "protocol": null
       }
     },
     {
@@ -148,27 +147,27 @@
         "probed": [
           {
             "path": "/.env",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.env.local",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.env.production",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.git/config",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.git/HEAD",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           }
         ],
@@ -226,7 +225,7 @@
     },
     {
       "id": "seo.description",
-      "status": "fail",
+      "status": "pass",
       "observed": "설명 메타",
       "evidence": {}
     },
@@ -238,30 +237,30 @@
     },
     {
       "id": "seo.og",
-      "status": "fail",
+      "status": "pass",
       "observed": "Open Graph 태그",
       "evidence": {}
     },
     {
       "id": "seo.canonical",
-      "status": "info",
+      "status": "pass",
       "observed": "canonical 링크",
       "evidence": {}
     },
     {
       "id": "perf.ttfb",
       "status": "pass",
-      "observed": "응답 시간 135ms",
+      "observed": "응답 시간 151ms",
       "evidence": {
-        "ms": 135
+        "ms": 151
       }
     },
     {
       "id": "perf.page-size",
       "status": "pass",
-      "observed": "문서 크기 10KB",
+      "observed": "문서 크기 3KB",
       "evidence": {
-        "bytes": 10326
+        "bytes": 2573
       }
     },
     {
@@ -278,9 +277,8 @@
       "observed": "server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149",
       "evidence": {
         "found": true,
-        "via": "path",
+        "via": "link",
         "where": "/privacy",
-        "status": 302,
         "aiJudgment": {
           "status": "pass",
           "evidence": "server.ts:23-45 & src/components/PrivacyPolicyModal.tsx:1-149",
@@ -292,12 +290,11 @@
     {
       "id": "legal.terms",
       "status": "pass",
-      "observed": "이용약관 발견(path: /terms)",
+      "observed": "이용약관 발견(link: /terms)",
       "evidence": {
         "found": true,
-        "via": "path",
-        "where": "/terms",
-        "status": 302
+        "via": "link",
+        "where": "/terms"
       }
     },
     {
@@ -487,24 +484,26 @@
     }
   ],
   "raw": {
-    "url": "https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app",
-    "finalUrl": "https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/__cookie_check.html?return_url=https%3A%2F%2Fais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app%2F",
+    "url": "http://localhost:3000",
+    "finalUrl": "http://localhost:3000/",
     "httpStatus": 200,
-    "ttfbMs": 135,
+    "ttfbMs": 151,
     "observedHeaders": [
-      "accept-ranges",
-      "alt-svc",
       "cache-control",
+      "connection",
       "content-length",
+      "content-security-policy",
       "content-type",
       "date",
       "etag",
-      "expires",
-      "last-modified",
-      "pragma",
-      "server",
-      "x-cloud-trace-context"
+      "keep-alive",
+      "permissions-policy",
+      "referrer-policy",
+      "strict-transport-security",
+      "vary",
+      "x-content-type-options",
+      "x-frame-options"
     ],
-    "scannedAt": "2026-07-31T05:04:46.426Z"
+    "scannedAt": "2026-07-31T05:09:50.413Z"
   }
 }

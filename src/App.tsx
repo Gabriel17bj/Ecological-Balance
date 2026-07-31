@@ -676,15 +676,23 @@ export default function App() {
             <span>|</span>
             <span>문의: gabriel@gabrielmath.kr</span>
             <span>|</span>
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                setPrivacyModalOpen(true);
-              }}
+            <a
+              href="/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-emerald-700 font-bold hover:underline flex items-center gap-1"
             >
-              <Lock className="w-3 h-3 text-emerald-600" /> 개인정보 처리방침
-            </button>
+              <Lock className="w-3 h-3 text-emerald-600" /> 개인정보처리방침
+            </a>
+            <span>|</span>
+            <a
+              href="/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-700 font-bold hover:underline"
+            >
+              이용약관
+            </a>
           </div>
         </footer>
       </div>
