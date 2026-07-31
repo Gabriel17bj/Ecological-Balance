@@ -4,7 +4,7 @@
     "name": "dorms-check",
     "version": "0.1.0"
   },
-  "generatedAt": "2026-07-31T01:45:38.181Z",
+  "generatedAt": "2026-07-31T04:46:54.015Z",
   "app": {
     "name": "생태계 균형 맞추기 게임",
     "url": "https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app",
@@ -13,11 +13,7 @@
       "security",
       "edzip"
     ],
-    "edzipCase": {
-      "q1": "A",
-      "q2": "B",
-      "q3": "C"
-    }
+    "edzipCase": "B"
   },
   "teacher": {
     "dormsHandle": null
@@ -25,8 +21,8 @@
   "tracks": {
     "security": {
       "claimed": true,
-      "score": 64,
-      "grade": "D",
+      "score": 82,
+      "grade": "B-",
       "eligible": false
     },
     "edzip": {
@@ -42,12 +38,12 @@
       "severity": "high",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "누락: content-security-policy",
+      "status": "pass",
+      "observed": "content-security-policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
       "evidence": {
         "header": "content-security-policy",
-        "value": null,
-        "observedAt": "2026-07-31T01:30:46.069Z"
+        "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'",
+        "observedAt": "2026-07-31T04:45:43.032Z"
       }
     },
     {
@@ -56,12 +52,12 @@
       "severity": "medium",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "누락: strict-transport-security",
+      "status": "pass",
+      "observed": "strict-transport-security: max-age=63072000; includeSubDomains",
       "evidence": {
         "header": "strict-transport-security",
-        "value": null,
-        "observedAt": "2026-07-31T01:30:46.070Z"
+        "value": "max-age=63072000; includeSubDomains",
+        "observedAt": "2026-07-31T04:45:43.032Z"
       }
     },
     {
@@ -70,12 +66,12 @@
       "severity": "medium",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "누락: x-frame-options",
+      "status": "pass",
+      "observed": "x-frame-options: SAMEORIGIN",
       "evidence": {
         "header": "x-frame-options",
-        "value": null,
-        "observedAt": "2026-07-31T01:30:46.070Z"
+        "value": "SAMEORIGIN",
+        "observedAt": "2026-07-31T04:45:43.032Z"
       }
     },
     {
@@ -84,12 +80,12 @@
       "severity": "low",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "누락: x-content-type-options",
+      "status": "pass",
+      "observed": "x-content-type-options: nosniff",
       "evidence": {
         "header": "x-content-type-options",
-        "value": null,
-        "observedAt": "2026-07-31T01:30:46.070Z"
+        "value": "nosniff",
+        "observedAt": "2026-07-31T04:45:43.032Z"
       }
     },
     {
@@ -98,12 +94,12 @@
       "severity": "low",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "누락: referrer-policy",
+      "status": "pass",
+      "observed": "referrer-policy: strict-origin-when-cross-origin",
       "evidence": {
         "header": "referrer-policy",
-        "value": null,
-        "observedAt": "2026-07-31T01:30:46.070Z"
+        "value": "strict-origin-when-cross-origin",
+        "observedAt": "2026-07-31T04:45:43.032Z"
       }
     },
     {
@@ -112,12 +108,12 @@
       "severity": "low",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
-      "observed": "누락: permissions-policy",
+      "status": "pass",
+      "observed": "permissions-policy: camera=(), microphone=(), geolocation=()",
       "evidence": {
         "header": "permissions-policy",
-        "value": null,
-        "observedAt": "2026-07-31T01:30:46.070Z"
+        "value": "camera=(), microphone=(), geolocation=()",
+        "observedAt": "2026-07-31T04:45:43.032Z"
       }
     },
     {
@@ -130,7 +126,7 @@
       "observed": "x-powered-by 미노출(양호)",
       "evidence": {
         "poweredBy": null,
-        "server": "Google Frontend"
+        "server": null
       }
     },
     {
@@ -139,11 +135,11 @@
       "severity": "high",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "pass",
-      "observed": "HTTP 요청이 HTTPS로 리다이렉트됨 (HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/)",
+      "status": "fail",
+      "observed": "HTTP 요청이 HTTPS로 강제되지 않음 (HTTP 0)",
       "evidence": {
-        "httpProbe": "HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/",
-        "redirectsHttps": true
+        "httpProbe": "HTTP 0",
+        "redirectsHttps": false
       }
     },
     {
@@ -152,12 +148,11 @@
       "severity": "critical",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "pass",
-      "observed": "TLS 연결 성공 (TLSv1.3)",
+      "status": "fail",
+      "observed": "TLS 연결 실패: connect ECONNREFUSED 127.0.0.1:443",
       "evidence": {
-        "protocol": "TLSv1.3",
-        "authorized": true,
-        "authError": null
+        "protocol": null,
+        "error": "connect ECONNREFUSED 127.0.0.1:443"
       }
     },
     {
@@ -167,9 +162,9 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "TLS 버전 양호: TLSv1.3",
+      "observed": "TLS 버전 양호: (측정 실패)",
       "evidence": {
-        "protocol": "TLSv1.3"
+        "protocol": null
       }
     },
     {
@@ -194,27 +189,27 @@
         "probed": [
           {
             "path": "/.env",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.env.local",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.env.production",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.git/config",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           },
           {
             "path": "/.git/HEAD",
-            "httpStatus": 302,
+            "httpStatus": 200,
             "exposed": false
           }
         ],
@@ -300,7 +295,7 @@
       "severity": "info",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
+      "status": "pass",
       "observed": "설명 메타",
       "evidence": {}
     },
@@ -320,7 +315,7 @@
       "severity": "info",
       "method": "deterministic",
       "serverVerifiable": true,
-      "status": "fail",
+      "status": "pass",
       "observed": "Open Graph 태그",
       "evidence": {}
     },
@@ -341,9 +336,9 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "응답 시간 169ms",
+      "observed": "응답 시간 150ms",
       "evidence": {
-        "ms": 169
+        "ms": 150
       }
     },
     {
@@ -353,9 +348,9 @@
       "method": "deterministic",
       "serverVerifiable": true,
       "status": "pass",
-      "observed": "문서 크기 10KB",
+      "observed": "문서 크기 2KB",
       "evidence": {
-        "bytes": 10326
+        "bytes": 1637
       }
     },
     {
@@ -382,7 +377,7 @@
         "found": true,
         "via": "path",
         "where": "/privacy",
-        "status": 302
+        "status": 200
       }
     },
     {
@@ -397,7 +392,7 @@
         "found": true,
         "via": "path",
         "where": "/terms",
-        "status": 302
+        "status": 200
       }
     },
     {
@@ -484,7 +479,7 @@
           "status": "pass",
           "evidence": "server.ts:8-16 (Content-Security-Policy, Strict-Transport-Security, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy 구현)",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.757Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -513,7 +508,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:43-52, src/components/ReflectionReportModal.tsx:28-32",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -530,7 +525,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:37-41, src/App.tsx:473",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -547,7 +542,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:43-60",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -564,7 +559,7 @@
           "status": "pass",
           "evidence": "server.ts:8-16, src/components/PrivacyPolicyModal.tsx:62-67",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -581,7 +576,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:69-74",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -598,7 +593,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:76-81",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -615,7 +610,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:89-97, src/App.tsx:477",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -632,7 +627,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:83-87",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     },
@@ -649,7 +644,7 @@
           "status": "pass",
           "evidence": "src/components/PrivacyPolicyModal.tsx:83-87",
           "by": "teacher-assistant",
-          "at": "2026-07-31T01:30:39.758Z"
+          "at": "2026-07-31T01:45:30.898Z"
         }
       }
     }
@@ -698,5 +693,5 @@
     ],
     "note": "서버는 이 항목을 앱 URL 로 독립 재스캔해 대조한다. 불일치 시 발급 거부. 나머지(code.hardcoded-secret 등)는 자기신고로 투명 표기."
   },
-  "manifestSha256": "2af00a0ee31baafe3a93d2288b61f284f415cb3b02b6e29dff4a953f2d74dcf2"
+  "manifestSha256": "f0570600607ddbb9e9780f422d28179d850be078a574379ba361c73a4d81f99f"
 }

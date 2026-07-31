@@ -8,11 +8,7 @@
     "security",
     "edzip"
   ],
-  "edzipCase": {
-    "q1": "A",
-    "q2": "B",
-    "q3": "C"
-  },
+  "edzipCase": "B",
   "teacher": {
     "dormsHandle": ""
   },

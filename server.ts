@@ -6,11 +6,13 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  app.disable("x-powered-by");
+
   // Set Security Headers for dorms-check & production security
   app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'");
+    res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'");
     res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains");
-    res.setHeader("X-Frame-Options", "DENY");
+    res.setHeader("X-Frame-Options", "SAMEORIGIN");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");

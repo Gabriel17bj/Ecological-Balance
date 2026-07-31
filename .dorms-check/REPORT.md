@@ -8,14 +8,18 @@
 > 이 리포트는 dorms-check(코치)의 자체 점검 결과입니다. 최종 인증마크는 도름스 서버가 스스로 다시 검증해 발급하며, 이 리포트의 통과가 마크를 보장하지 않습니다.
 
 ## 보안 검토
-- 점수: 64/100 (D)
+- 점수: 92/100 (A-)
 - 마크 자격(critical/high 0): 미충족
 
 ### 통과 항목(증빙)
+- [v] Content-Security-Policy — 헤더값: default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; frame-ancestors 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'
+- [v] Strict-Transport-Security — 헤더값: max-age=63072000; includeSubDomains
+- [v] 클릭재킹 방어(X-Frame-Options / frame-ancestors) — 헤더값: SAMEORIGIN
+- [v] X-Content-Type-Options: nosniff — 헤더값: nosniff
+- [v] Referrer-Policy — 헤더값: strict-origin-when-cross-origin
+- [v] Permissions-Policy — 헤더값: camera=(), microphone=(), geolocation=()
 - [v] 서버/프레임워크 버전 노출 — x-powered-by 미노출(양호)
-- [v] HTTPS 강제(HTTP→HTTPS 리다이렉트) — HTTP 요청이 HTTPS로 리다이렉트됨 (HTTP 302 -> https://ais-dev-itb3ixcvp3yjsuqkxg4zxk-962247545765.asia-east1.run.app/)
-- [v] SSL 인증서 유효 — TLS 연결 성공 (TLSv1.3)
-- [v] 구버전 TLS 미사용 — TLS 버전 양호: TLSv1.3
+- [v] 구버전 TLS 미사용 — TLS 버전 양호: (측정 실패)
 - [v] 민감 파일 노출(.env/.git) — 민감 파일(.env/.git) 노출 없음
 - [v] 설정 파일 노출 — 설정 파일 비노출
 - [v] 소스맵 노출 — 소스맵 참조 없음
@@ -23,9 +27,11 @@
 - [v] Mixed Content — mixed content 없음
 - [v] CORS 설정 — CORS가 임의 Origin을 허용하지 않음(양호)
 - [v] 페이지 제목 — <title> 있음
+- [v] 설명 메타 — 설명 메타
 - [v] 모바일 viewport — viewport 메타
-- [v] 응답 속도 — 응답 시간 169ms
-- [v] 문서 크기 — 문서 크기 10KB
+- [v] Open Graph — Open Graph 태그
+- [v] 응답 속도 — 응답 시간 150ms
+- [v] 문서 크기 — 문서 크기 2KB
 - [v] 개인정보처리방침 — 개인정보처리방침 발견(path: /privacy)
 - [v] 이용약관 — 이용약관 발견(path: /terms)
 - [v] 연락처 — 연락처/문의 정보 있음
@@ -35,45 +41,15 @@
 - [v] 위험 코드 패턴(검토 후보) — 위험 코드 패턴 미검출
 
 ### 아직 고쳐야 할 항목
-#### [high] Content-Security-Policy
-- 무엇: 외부에서 내 페이지에 악성 스크립트를 끼워넣는 공격(XSS)을 막는 기본 규칙이 없어요.
-- 지금 상태: 누락: content-security-policy
-- AI에게 이렇게 시켜주세요: `내 Vite 앱의 모든 응답에 Content-Security-Policy 헤더를 넣어줘. Next.js면 middleware.ts에서 설정하고 최소한 default-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' 를 포함해줘. 인라인 스크립트가 필요하면 nonce 방식으로 허용해줘.`
+#### [critical] SSL 인증서 유효
+- 무엇: 보안 인증서가 유효하지 않아요. 접속 자체가 안전하지 않다고 표시될 수 있어요.
+- 지금 상태: TLS 연결 실패: connect ECONNREFUSED 127.0.0.1:443
+- AI에게 이렇게 시켜주세요: `호스팅(예: Vercel)에서 도메인의 SSL 인증서를 정상 발급받도록 도메인 설정을 확인해줘.`
 
-#### [medium] Strict-Transport-Security
-- 무엇: 접속을 항상 암호화(https)로만 하도록 강제하는 설정이 빠졌어요.
-- 지금 상태: 누락: strict-transport-security
-- AI에게 이렇게 시켜주세요: `Vite 앱 응답에 Strict-Transport-Security: max-age=63072000; includeSubDomains 헤더를 추가해줘.`
-
-#### [medium] 클릭재킹 방어(X-Frame-Options / frame-ancestors)
-- 무엇: 내 화면을 남의 사이트가 몰래 안에 띄워 클릭을 가로채는 공격을 막는 설정이 없어요.
-- 지금 상태: 누락: x-frame-options
-- AI에게 이렇게 시켜주세요: `Vite 앱에 X-Frame-Options: DENY 헤더(또는 CSP frame-ancestors 'none')를 추가해줘.`
-
-#### [low] X-Content-Type-Options: nosniff
-- 무엇: 브라우저가 파일 종류를 멋대로 추측해 생기는 공격을 막는 설정이 없어요.
-- 지금 상태: 누락: x-content-type-options
-- AI에게 이렇게 시켜주세요: `Vite 앱 응답에 X-Content-Type-Options: nosniff 헤더를 추가해줘.`
-
-#### [low] Referrer-Policy
-- 무엇: 다른 사이트로 이동할 때 내 주소 정보가 과하게 새는 걸 막는 설정이 없어요.
-- 지금 상태: 누락: referrer-policy
-- AI에게 이렇게 시켜주세요: `Vite 앱에 Referrer-Policy: strict-origin-when-cross-origin 헤더를 추가해줘.`
-
-#### [low] Permissions-Policy
-- 무엇: 카메라·위치 같은 브라우저 권한 사용을 제한하는 설정이 없어요.
-- 지금 상태: 누락: permissions-policy
-- AI에게 이렇게 시켜주세요: `Vite 앱에 필요한 기능만 허용하는 Permissions-Policy 헤더를 추가해줘(예: camera=(), geolocation=()).`
-
-#### [info] 설명 메타
-- 무엇: meta description 이 없어요.
-- 지금 상태: 설명 메타
-- AI에게 이렇게 시켜주세요: `meta name="description" 을 넣어줘.`
-
-#### [info] Open Graph
-- 무엇: 링크 공유 미리보기(OG) 태그가 없어요.
-- 지금 상태: Open Graph 태그
-- AI에게 이렇게 시켜주세요: `og:title/og:description/og:image 메타를 넣어줘.`
+#### [high] HTTPS 강제(HTTP→HTTPS 리다이렉트)
+- 무엇: http로 들어와도 암호화된 https로 자동 전환되지 않아, 중간에서 내용이 새거나 조작될 수 있어요.
+- 지금 상태: HTTP 요청이 HTTPS로 강제되지 않음 (HTTP 0)
+- AI에게 이렇게 시켜주세요: `Vite 앱에서 http 요청을 https 로 강제 리다이렉트하도록 설정해줘.`
 
 ### 참고(검토 권장, 마크 게이트 아님)
 - canonical: canonical 링크
