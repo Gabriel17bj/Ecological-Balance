@@ -1,0 +1,6 @@
+{
+  "name": "생태계 균형 맞추기 게임",
+  "description": "풀, 토끼, 늑대 및 환경 요소를 직접 조절하고 관찰하는 상호작용형 생태계 시뮬레이션 게임",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
